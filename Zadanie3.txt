@@ -1,0 +1,102 @@
+XAML:
+<Window x:Class="Zadanie3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zadanie3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="K:" FontSize="30"/>
+        <TextBox x:Name="TBK" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"/>
+        <Button Grid.Row="8" Grid.ColumnSpan="5" Grid.RowSpan="2" Content="OK" Click="Button_Click"/>
+        <TextBox x:Name="OTV" Grid.Row="10" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
+        <TextBlock Text="1 - понедельник" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Text="2 - вторник" Grid.Row="2" Grid.Column="1"/>
+        <TextBlock Text="3 - среда" Grid.Row="3" Grid.Column="1"/>
+        <TextBlock Text="4 - четверг" Grid.Row="4" Grid.Column="1"/>
+        <TextBlock Text="5 - пятница" Grid.Row="5" Grid.Column="1"/>
+        <TextBlock Text="6 - суббота" Grid.Row="6" Grid.Column="1"/>
+        <TextBlock Text="7 - воскресенье" Grid.Row="7" Grid.Column="1"/>
+    </Grid>
+</Window>
+
+CS:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Zadanie3
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int k = Convert.ToInt32(TBK.Text);
+                if(k <= 365)
+                {
+                    int day = (k + 2) % 7;
+                    if (day == 0)
+                    {
+                        day = 7;
+                    }
+                    OTV.Text = $"Hомер дня недели для {k} дня года: {day}";
+                }
+                else
+                    MessageBox.Show("Вы ввели неправильный день");
+
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Введены не корректные данные");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+}
